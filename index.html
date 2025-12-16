@@ -64,26 +64,34 @@
     
 .reveal{
   opacity: 0;
-  transform: translateY(8px);
-  filter: blur(1px);
+  transform: translateY(16px) scale(.985);
+  filter: blur(2px);
   transition:
-    opacity .9s cubic-bezier(.2,.8,.2,1),
-    transform .9s cubic-bezier(.2,.8,.2,1),
-    filter .9s cubic-bezier(.2,.8,.2,1);
+    opacity 1.1s cubic-bezier(.16,1,.3,1),
+    transform 1.1s cubic-bezier(.16,1,.3,1),
+    filter 1.1s cubic-bezier(.16,1,.3,1);
   will-change: opacity, transform, filter;
 }
 .reveal.show{
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   filter: blur(0);
 }
 
+    
+.hero{
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.hero .kicker, .hero h1, .hero .sub, .hero .pill{
+  transform: translateZ(12px);
+}
 
   </style>
 </head>
 <body>
   <main class="wrap">
-    <section class="hero reveal show">
+    <section class="hero reveal show" id="heroCard">
       <div class="kicker">umarim begenirsin..</div>
       <h1>sadece sana ozel.</h1>
       <p class="sub">burasi oyle herkesin girebilecegi bi yer degil kocum. tamamen sana ait.</p>
@@ -129,39 +137,48 @@ hayatimda kendimi guvende hissettigim sayili kisilerdensin.
     </section>
 
     
-    <section class="section reveal">
-      <h2 class="title"><span class="dot"></span> Anılar</h2>
-      <p class="muted">bak, burda da biz variz.</p>
+  <section class="section reveal">
+  <h2 class="title"><span class="dot"></span> Anılar</h2>
+  <p class="muted">bak, burda da biz variz.</p>
 
-      <div class="grid" style="margin-top:14px">
-        <figure class="shot">
-          <img src="assets/ss1.png" alt="Anı 1">
-          <figcaption class="cap">yaptıgımız couple pplerden en guzeli bu bence</figcaption>
-        </figure>
-
-        <figure class="shot">
-          <img src="assets/ss2.png" alt="Anı 2">
-          <figcaption class="cap">cok seksi cikmisiz baksana QWÜEĞQWPRĞQLELASFL</figcaption>
-        </figure>
-
-        <figure class="shot">
-          <img src="assets/ss3.png" alt="Anı 3">
-          <figcaption class="cap">burda da cok tatliyiz ben bu ssi cok seviyorum</figcaption>
-        </figure>
-
-        <figure class="shot">
-          <img src="assets/ss4.png" alt="Anı 4">
-          <figcaption class="cap">burda da simste bizim karakterler fingirdesiyo</figcaption>
-        </figure>
-      </div>
-    </section>
+  <div class="grid" style="margin-top:14px">
+    <figure class="shot">
+      <img src="assets/ss1.png" alt="Anı 1">
+      <figcaption class="cap">yaptıgımız couple pplerden en guzeli bu bence</figcaption>
+    </figure>
 
     <figure class="shot">
-          <img src="assets/ss5.png" alt="Anı 4">
-          <figcaption class="cap">bunu koymasam olmazdi. ileride bunu her turlu yapicaz.</figcaption>
-        </figure>
-      </div>
-    </section>
+      <img src="assets/ss2.png" alt="Anı 2">
+      <figcaption class="cap">cok seksi cikmisiz baksana QWÜEĞQWPRĞQLELASFL</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="assets/ss3.png" alt="Anı 3">
+      <figcaption class="cap">burda da cok tatliyiz ben bu ssi cok seviyorum</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="assets/ss4.png" alt="Anı 4">
+      <figcaption class="cap">burda da simste bizim karakterler fingirdesiyo</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="assets/ss5.png" alt="Anı 5">
+      <figcaption class="cap">bunu koymasam olmazdi. ileride bunu her turlu yapicaz.</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="assets/ss6.png" alt="Anı 6">
+      <figcaption class="cap">bak knkkk bu da bizz</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="assets/ss7.png" alt="Anı 7">
+      <figcaption class="cap">♥</figcaption>
+    </figure>
+  </div>
+</section>
+
 
     <figure class="shot">
           <img src="assets/ss6.png" alt="Anı 4">
@@ -180,22 +197,62 @@ hayatimda kendimi guvende hissettigim sayili kisilerdensin.
     <div class="footer">
       bu sadece bir link. hislerimi istedigim kadar belli edemesem de, iyi ki dogdun, iyi ki varsin gizmos <3 
     </div>
-  </main>
+    </main>
   <script>
-  <script>
-  const items = document.querySelectorAll('.reveal');
+  window.addEventListener('DOMContentLoaded', () => {
 
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add('show');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08, rootMargin: "0px 0px -10% 0px" });
+    
+    const items = document.querySelectorAll('.reveal');
+    if (!items.length) return;
 
-  items.forEach(el=>io.observe(el));
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('show');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -10% 0px" });
+
+    items.forEach(el=>io.observe(el));
+
+
+    const hero = document.getElementById('heroCard');
+    if (hero) {
+      const maxTilt = 6;
+      let rafId = null;
+      let px = 0, py = 0;
+
+      const update = () => {
+        rafId = null;
+        const r = hero.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+
+        const dx = (px - cx) / (r.width / 2);
+        const dy = (py - cy) / (r.height / 2);
+
+        const rx = (-dy * maxTilt).toFixed(2);
+        const ry = ( dx * maxTilt).toFixed(2);
+
+        hero.style.transform =
+          `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      };
+
+      window.addEventListener('mousemove', (e) => {
+        px = e.clientX;
+        py = e.clientY;
+        if (!rafId) rafId = requestAnimationFrame(update);
+      });
+
+      document.addEventListener('mouseleave', () => {
+  hero.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+});
+
+    }
+
+  });
 </script>
-</script>
+  
 </body>
 </html>
