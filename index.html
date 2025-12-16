@@ -5,205 +5,414 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>gizmoss</title>
 
-  <!-- JS varsa "js" class'ı ekle: reveal animasyonu güvenli çalışsın, JS yoksa içerik kaybolmasın -->
   <script>
     document.documentElement.classList.add('js');
   </script>
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Pacifico&display=swap');
+
     :root{
-      --bg:#0b0c10; --card:#12141b; --text:#e9ecf1; --muted:#a9b0bf; --line:#1f2430;
-      --accent:#8a7dff;
+      --bg:#070812;
+      --panel: rgba(14, 16, 34, .62);
+      --panel2: rgba(14, 16, 34, .46);
+      --line: rgba(255,255,255,.10);
+
+      --text: rgba(245,247,255,.92);
+      --muted: rgba(245,247,255,.62);
+
+      --violet: #8a7dff;
+      --teal: #00ffd1;
+
+      --glow: 0 0 18px rgba(255,255,255,.16);
+      --glowStrong: 0 0 26px rgba(138,125,255,.22);
+      --shadow: 0 18px 60px rgba(0,0,0,.40);
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
       background: var(--bg);
-      color:var(--text);
-      font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: var(--text);
+      font: 16px/1.65 "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       overflow-x:hidden;
     }
 
-    /* Animated premium background (çok soft) */
+    /* Premium animated ambience */
     body::before{
       content:"";
       position:fixed;
       inset:-30%;
-      z-index:-1;
+      z-index:-2;
       background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(138,125,255,.20), transparent 60%),
-        radial-gradient(900px 600px at 95% 25%, rgba(0,255,209,.10), transparent 55%),
-        radial-gradient(1000px 700px at 35% 95%, rgba(138,125,255,.10), transparent 60%),
-        radial-gradient(900px 600px at 75% 85%, rgba(0,255,209,.07), transparent 55%);
-      filter: blur(10px);
+        radial-gradient(900px 600px at 15% 15%, rgba(138,125,255,.22), transparent 60%),
+        radial-gradient(900px 600px at 85% 20%, rgba(0,255,209,.14), transparent 55%),
+        radial-gradient(900px 600px at 40% 95%, rgba(138,125,255,.12), transparent 60%),
+        radial-gradient(700px 500px at 80% 90%, rgba(0,255,209,.08), transparent 55%);
+      filter: blur(14px);
       opacity:.95;
       transform: translate3d(0,0,0);
-      animation: bgDrift 22s ease-in-out infinite alternate;
+      animation: bgDrift 18s ease-in-out infinite alternate;
+      pointer-events:none;
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.42));
       pointer-events:none;
     }
     @keyframes bgDrift{
-      0%   { transform: translate3d(-1.5%, -1%, 0) scale(1.02); }
-      50%  { transform: translate3d( 1.0%,  1%, 0) scale(1.03); }
-      100% { transform: translate3d( 2.0%, -0.5%,0) scale(1.02); }
+      0%   { transform: translate3d(-1.5%, -1.2%, 0) scale(1.03); }
+      50%  { transform: translate3d( 1.0%,  1.1%, 0) scale(1.04); }
+      100% { transform: translate3d( 2.2%, -0.7%, 0) scale(1.03); }
     }
 
-    a{color:var(--text); text-decoration: none; border-bottom:1px solid rgba(233,236,241,.25)}
-    a:hover{border-bottom-color: rgba(233,236,241,.65)}
+    a{color:var(--text); text-decoration:none; border-bottom:1px solid rgba(245,247,255,.25)}
+    a:hover{border-bottom-color: rgba(245,247,255,.65)}
 
-    .wrap{max-width:980px; margin:0 auto; padding:48px 18px 80px}
+    .wrap{max-width:1040px; margin:0 auto; padding:54px 18px 96px}
+
+    /* Headline glow (subtle) */
+    h1,h2{
+      text-shadow: var(--glow);
+    }
+    .kicker, .muted, .cap, .footer{
+      text-shadow: 0 0 12px rgba(255,255,255,.10);
+    }
+
+    /* Panels */
+    .card{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.30);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Hover premium motion */
+    .card{
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .card:hover{
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+      border-color: rgba(138,125,255,.28);
+    }
 
     .hero{
-      padding:28px 22px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(18,20,27,.72);
-      backdrop-filter: blur(10px);
-      position: relative;
-      overflow:hidden;
+      padding: 30px 24px;
       transform-style: preserve-3d;
       will-change: transform;
     }
 
-    /* Mouse glow (hero) */
+    /* Mouse glow layer for hero */
     .hero::after{
       content:"";
       position:absolute;
       inset:-1px;
       background:
         radial-gradient(
-          260px 260px at var(--mx,50%) var(--my,50%),
-          rgba(138,125,255,.20),
+          300px 300px at var(--mx,50%) var(--my,50%),
+          rgba(138,125,255,.22),
           transparent 60%
+        ),
+        radial-gradient(
+          280px 280px at calc(var(--mx,50%) + 6%) calc(var(--my,50%) + 6%),
+          rgba(0,255,209,.10),
+          transparent 62%
         );
       opacity:0;
-      transition: opacity .22s ease;
+      transition: opacity .18s ease;
       pointer-events:none;
     }
     .hero:hover::after{ opacity:1; }
 
-    .kicker{color:var(--muted); letter-spacing:.08em; text-transform:uppercase; font-size:12px; transform: translateZ(14px)}
-    h1{margin:10px 0 6px; font-size:34px; line-height:1.15; transform: translateZ(18px)}
-    .sub{color:var(--muted); margin:0; transform: translateZ(14px)}
+    .kicker{
+      color: var(--muted);
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      font-size:12px;
+      transform: translateZ(14px);
+    }
+    h1{
+      margin:10px 0 6px;
+      font-size: 40px;
+      line-height: 1.12;
+      transform: translateZ(18px);
+      text-shadow: var(--glow), var(--glowStrong);
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      transform: translateZ(14px);
+    }
     .pill{
-      display:inline-block; padding:6px 10px; border:1px solid var(--line); border-radius:999px;
-      background:rgba(255,255,255,.03); color:var(--muted); margin-top:10px;
-      transform: translateZ(14px)
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      margin-top:12px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      transform: translateZ(14px);
+    }
+    .pill .spark{
+      width:8px;height:8px;border-radius:99px;
+      background: linear-gradient(90deg, var(--violet), var(--teal));
+      box-shadow: 0 0 16px rgba(138,125,255,.35);
     }
 
     .section{
-      margin-top:26px;
-      padding:22px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(18,20,27,.55);
-      position:relative;
+      padding: 22px;
+      margin-top: 22px;
     }
 
-    /* Hover (no transform clash with reveal) */
-    .hero:hover, .section:hover{
-      border-color: rgba(138,125,255,.35);
-      box-shadow: 0 18px 50px rgba(0,0,0,.35);
-      transition: box-shadow .18s ease, border-color .18s ease;
+    .title{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin:0 0 12px;
     }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(90deg, var(--violet), var(--teal));
+      box-shadow: 0 0 18px rgba(138,125,255,.45);
+    }
+    .muted{ color: var(--muted); margin:0; }
 
-    .title{display:flex; gap:10px; align-items:center; margin:0 0 12px}
-    .dot{width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 18px rgba(138,125,255,.55)}
-    .letter{white-space:pre-wrap; color:var(--text); margin:0}
-    .muted{color:var(--muted)}
-    .footer{margin-top:26px; text-align:center; color:var(--muted); font-size:13px}
-
-    /* Gallery grid: all tiles same size & aligned */
+    /* Gallery grid: equal tiles, no stagger */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:12px;
-      margin-top:14px;
+      gap: 12px;
+      margin-top: 14px;
     }
-    @media (max-width:980px){
-      .grid{grid-template-columns: repeat(2, minmax(0,1fr));}
-    }
+    @media (max-width:980px){ .grid{grid-template-columns: repeat(2, minmax(0,1fr));} }
     @media (max-width:720px){
       .grid{grid-template-columns: 1fr;}
-      h1{font-size:28px}
+      h1{font-size: 32px;}
     }
 
     .shot{
-      border:1px solid var(--line);
-      border-radius:14px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
       overflow:hidden;
-      background:#0f1118;
-      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      background: rgba(10,12,22,.62);
+      box-shadow: 0 12px 34px rgba(0,0,0,.28);
+      transition: transform .20s ease, box-shadow .20s ease, border-color .20s ease;
     }
-
-    /* Fixed tile frame so cards don't stagger */
-    .shot .imgwrap{
+    .shot:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.38);
+      border-color: rgba(0,255,209,.18);
+    }
+    .imgwrap{
       width:100%;
       aspect-ratio: 1 / 1;
-      background:#0f1118;
+      background: rgba(10,12,22,.70);
     }
     .shot img{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
+      filter: saturate(1.06) contrast(1.04);
     }
     .cap{
-      padding:10px 12px;
-      color:var(--muted);
-      font-size:13px;
-      border-top:1px solid var(--line);
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,.08);
     }
 
-    .shot{
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      cursor: default;
-    }
-    .shot:hover{
-      transform: translateY(-3px);
-      border-color: rgba(138,125,255,.35);
-      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    .footer{
+      margin-top: 26px;
+      text-align:center;
+      color: var(--muted);
+      font-size: 13px;
+      text-shadow: 0 0 14px rgba(255,255,255,.10);
     }
 
-    /* Soft scroll reveal: ONLY when JS is active */
+    /* Scroll reveal: only hide when JS active */
     .reveal{ opacity:1; transform:none; filter:none; }
     .js .reveal{
       opacity: 0;
-      transform: translateY(16px) scale(.985);
-      filter: blur(2px);
+      transform: translateY(22px);
+      filter: blur(3px);
       transition:
-        opacity 1.1s cubic-bezier(.16,1,.3,1),
-        transform 1.1s cubic-bezier(.16,1,.3,1),
-        filter 1.1s cubic-bezier(.16,1,.3,1);
+        opacity 1.0s cubic-bezier(.16,1,.3,1),
+        transform 1.0s cubic-bezier(.16,1,.3,1),
+        filter 1.0s cubic-bezier(.16,1,.3,1);
       will-change: opacity, transform, filter;
     }
     .js .reveal.show{
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
       filter: blur(0);
     }
 
-    /* Intro only for hero (extra soft) */
-    @keyframes fadeUp{
-      from{opacity:0; transform:translateY(10px)}
-      to{opacity:1; transform:translateY(0)}
+    /* Note modal */
+    .noteBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:10px;
+      padding:10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      box-shadow: 0 10px 26px rgba(0,0,0,.22);
     }
-    .hero{
-      animation: fadeUp .6s ease both;
+    .noteBtn:hover{
+      transform: translateY(-3px);
+      border-color: rgba(138,125,255,.22);
+      box-shadow: 0 16px 40px rgba(0,0,0,.32);
+    }
+    .noteBtn .tag{
+      font-family: "Pacifico", cursive;
+      font-size: 16px;
+      text-shadow: 0 0 16px rgba(255,255,255,.22);
+    }
+    .noteBtn .mini{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .modalBack{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.58);
+      backdrop-filter: blur(8px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .modalBack.open{ display:flex; }
+
+    .modal{
+      width: min(920px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(14,16,34,.80);
+      box-shadow: 0 28px 90px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .modalTop .t{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 800;
+      text-shadow: var(--glow);
+    }
+    .xbtn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 8px 12px;
+      cursor:pointer;
+      transition: transform .15s ease;
+    }
+    .xbtn:hover{ transform: translateY(-2px); }
+
+    .modalBody{
+      padding: 18px 18px 20px;
+      color: var(--text);
+    }
+    .modalBody .letter{
+      white-space:pre-wrap;
+      margin:0;
+      text-shadow: 0 0 14px rgba(255,255,255,.10);
+    }
+    .modalBody .sig{
+      margin-top:12px;
+      color: var(--muted);
+    }
+
+    /* Discord floating button */
+    .discordFloat{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:10px;
+    }
+    .discordLabel{
+      font-family:"Pacifico", cursive;
+      font-size: 18px;
+      color: rgba(255,255,255,.92);
+      text-shadow: 0 0 18px rgba(255,255,255,.22), 0 0 26px rgba(138,125,255,.22);
+      opacity: .95;
+      transform: translateY(6px);
+      pointer-events:none;
+    }
+    .discordBtn{
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(14,16,34,.55);
+      backdrop-filter: blur(10px);
+      display:grid;
+      place-items:center;
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      text-decoration:none;
+    }
+    .discordBtn:hover{
+      transform: translateY(-6px);
+      border-color: rgba(0,255,209,.18);
+      box-shadow: 0 26px 70px rgba(0,0,0,.55);
+    }
+    .discordBtn svg{
+      width: 30px;
+      height: 30px;
+      filter: drop-shadow(0 0 14px rgba(255,255,255,.18));
+    }
+    .discordHint{
+      font-size: 12px;
+      color: rgba(245,247,255,.62);
+      text-shadow: 0 0 12px rgba(255,255,255,.10);
+      margin-right: 2px;
+      pointer-events:none;
     }
   </style>
 </head>
 
 <body>
   <main class="wrap">
-    <section class="hero reveal show" id="heroCard">
+
+    <section class="card hero reveal show" id="heroCard">
       <div class="kicker">umarim begenirsin..</div>
       <h1>sadece sana ozel.</h1>
       <p class="sub">burasi oyle herkesin girebilecegi bi yer degil kocum. tamamen sana ait.</p>
-      <div class="pill">14.02.2006 <3 </div>
+      <div class="pill"><span class="spark"></span>14.02.2006 &lt;3</div>
     </section>
 
-    <section class="section reveal">
+    <section class="card section reveal">
       <h2 class="title"><span class="dot"></span> Playlist</h2>
       <p class="muted">bu playlist sana ozel. bu sarkilar gibi hissettiriyorsun.</p>
       <p style="margin:10px 0 0">
@@ -211,35 +420,17 @@
       </p>
     </section>
 
-    <section class="section reveal">
+    <section class="card section reveal">
       <h2 class="title"><span class="dot"></span> doriskodan gizmosa mektup</h2>
-      <p class="letter">
-hani bazi insanlarla konusurken kendini bi toplaman gerekir ya da ne bileyim, bi rahat hissedemezsin ya?
-iste ben sende onu asla yasamadim. 
 
-sen benim için hep ilk tarafta oldun.
-yanindayken rahat hissetmemin, gulmemin tek sebebi bu. 
-benim icin herkesten ayri olman.
-
-yillardir “sanal” diyoruz ama
-bazi baglar ekrandan daha buyuk oluyor.
-
-en sevdigim ozelligimiz de ne biliyon mu gizmos?
-birbirimize karsi durust olmak icin ekstra bi caba harcamamiza gerek yok.
-oldugumuz gibi davraniyoruz.
-
-hani bazen ayni seye bakip farkli yerlerden gorursun ya?
-sanki biz de oyleyiz.
-ayri ama sanki hep yanyanaymisiz gibi.
-
-bunu ozel bir güne sıkıstırmak istemedim.
-sadece hayatin boyunca sunu hic unutma:
-hayatimda kendimi guvende hissettigim sayili kisilerdensin.
-      </p>
-      <p class="muted" style="margin-top:12px">— dorisko</p>
+      <!-- Not: tıklayınca açılır -->
+      <button class="noteBtn" id="openNote" type="button">
+        <span class="tag">not</span>
+        <span class="mini">tıkla, açalım.</span>
+      </button>
     </section>
 
-    <section class="section reveal">
+    <section class="card section reveal">
       <h2 class="title"><span class="dot"></span> Anılar</h2>
       <p class="muted">bak, burda da biz variz.</p>
 
@@ -282,73 +473,155 @@ hayatimda kendimi guvende hissettigim sayili kisilerdensin.
     </section>
 
     <div class="footer">
-      bu sadece bir link. hislerimi istedigim kadar belli edemesem de, iyi ki dogdun, iyi ki varsin gizmos <3 
+      bu sadece bir link. hislerimi istedigim kadar belli edemesem de, iyi ki dogdun, iyi ki varsin gizmos &lt;3
     </div>
   </main>
 
+  <!-- NOTE MODAL (metin değişmedi, sadece artık pop-up içinde) -->
+  <div class="modalBack" id="noteBack" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="not">
+      <div class="modalTop">
+        <div class="t"><span class="dot"></span> doriskodan gizmosa mektup</div>
+        <button class="xbtn" id="closeNote" type="button">kapat</button>
+      </div>
+      <div class="modalBody">
+        <p class="letter">
+hani bazi insanlarla konusurken kendini bi toplaman gerekir ya da ne bileyim, bi rahat hissedemezsin ya?
+iste ben sende onu asla yasamadim. 
+
+sen benim için hep ilk tarafta oldun.
+yanindayken rahat hissetmemin, gulmemin tek sebebi bu. 
+benim icin herkesten ayri olman.
+
+yillardir “sanal” diyoruz ama
+bazi baglar ekrandan daha buyuk oluyor.
+
+en sevdigim ozelligimiz de ne biliyon mu gizmos?
+birbirimize karsi durust olmak icin ekstra bi caba harcamamiza gerek yok.
+oldugumuz gibi davraniyoruz.
+
+hani bazen ayni seye bakip farkli yerlerden gorursun ya?
+sanki biz de oyleyiz.
+ayri ama sanki hep yanyanaymisiz gibi.
+
+bunu ozel bir güne sıkıstırmak istemedim.
+sadece hayatin boyunca sunu hic unutma:
+hayatimda kendimi guvende hissettigim sayili kisilerdensin.
+        </p>
+        <p class="sig">— dorisko</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Discord floating -->
+  <div class="discordFloat">
+    <div class="discordLabel">her zaman buradayim. &lt;3</div>
+
+    <!-- USER ID'yi buraya yapıştırınca tek tık DM açılır -->
+    <a class="discordBtn"
+       id="discordBtn"
+       href="discord://-/users/599305638455148547"
+       data-web="https://discord.com/users/599305638455148547"
+       aria-label="discord dm">
+      <!-- Discord icon -->
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path fill="rgba(245,247,255,.92)" d="M19.6 5.2a16 16 0 0 0-4-1.3l-.2.4a15 15 0 0 1 3.5 1.6c-1.5-.7-3.4-1.3-6.9-1.3S6.6 5.2 5.1 5.9A15 15 0 0 1 8.6 4.3l-.2-.4a16 16 0 0 0-4 1.3C2.4 8 1.8 10.6 2 13.2c1.3 1.9 3.2 3 5.1 3.7l.6-.8a9.8 9.8 0 0 1-1.6-.8l.4-.3c3.1 1.4 6.5 1.4 9.6 0l.4.3c-.5.3-1 .6-1.6.8l.6.8c1.9-.7 3.8-1.8 5.1-3.7.2-2.6-.4-5.2-2.4-8z"/>
+        <path fill="rgba(10,12,22,.62)" d="M9.2 13.4a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6zm5.6 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6z"/>
+      </svg>
+    </a>
+
+    <div class="discordHint">ahrisee</div>
+  </div>
+
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      // Scroll reveal (soft)
+      // Scroll reveal: bölüm bölüm, kullanıcı ne kadar scroll ederse o kadar açılır.
       const items = document.querySelectorAll('.reveal');
-
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{
           if(e.isIntersecting){
             e.target.classList.add('show');
+            // premium: her section açılınca bir kere aç, sonra sabit kalsın
             io.unobserve(e.target);
           }
         });
-      }, { threshold: 0.08, rootMargin: "0px 0px -10% 0px" });
-
+      }, { threshold: 0.14, rootMargin: "0px 0px -12% 0px" });
       items.forEach(el=>io.observe(el));
 
-      // Hero parallax + mouse glow
+      // Note modal
+      const noteBack = document.getElementById('noteBack');
+      const openNote = document.getElementById('openNote');
+      const closeNote = document.getElementById('closeNote');
+
+      const openModal = () => {
+        noteBack.classList.add('open');
+        noteBack.setAttribute('aria-hidden', 'false');
+      };
+      const closeModal = () => {
+        noteBack.classList.remove('open');
+        noteBack.setAttribute('aria-hidden', 'true');
+      };
+
+      openNote.addEventListener('click', openModal);
+      closeNote.addEventListener('click', closeModal);
+      noteBack.addEventListener('click', (e)=>{ if(e.target === noteBack) closeModal(); });
+      window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+      // Hero parallax + glow follow (premium-soft)
       const hero = document.getElementById('heroCard');
-      if (!hero) return;
+      if (hero) {
+        const maxTilt = 5.2;
+        let rafId = null;
+        let px = 0, py = 0;
 
-      const maxTilt = 5; // premium-soft
-      let rafId = null;
-      let px = 0, py = 0;
+        const update = () => {
+          rafId = null;
+          const r = hero.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
 
-      const update = () => {
-        rafId = null;
-        const r = hero.getBoundingClientRect();
-        const cx = r.left + r.width / 2;
-        const cy = r.top + r.height / 2;
+          const dx = (px - cx) / (r.width / 2);
+          const dy = (py - cy) / (r.height / 2);
 
-        const dx = (px - cx) / (r.width / 2);
-        const dy = (py - cy) / (r.height / 2);
+          const rx = (-dy * maxTilt).toFixed(2);
+          const ry = ( dx * maxTilt).toFixed(2);
 
-        const rx = (-dy * maxTilt).toFixed(2);
-        const ry = ( dx * maxTilt).toFixed(2);
+          hero.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        };
 
-        hero.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      };
+        const setGlow = (x, y) => {
+          const r = hero.getBoundingClientRect();
+          const mx = ((x - r.left) / r.width) * 100;
+          const my = ((y - r.top) / r.height) * 100;
+          hero.style.setProperty('--mx', `${mx}%`);
+          hero.style.setProperty('--my', `${my}%`);
+        };
 
-      const setGlow = (x, y) => {
-        const r = hero.getBoundingClientRect();
-        const mx = ((x - r.left) / r.width) * 100;
-        const my = ((y - r.top) / r.height) * 100;
-        hero.style.setProperty('--mx', `${mx}%`);
-        hero.style.setProperty('--my', `${my}%`);
-      };
+        hero.addEventListener('mousemove', (e) => {
+          px = e.clientX; py = e.clientY;
+          setGlow(e.clientX, e.clientY);
+          if (!rafId) rafId = requestAnimationFrame(update);
+        });
 
-      hero.addEventListener('mousemove', (e) => {
-        px = e.clientX; py = e.clientY;
-        setGlow(e.clientX, e.clientY);
-        if (!rafId) rafId = requestAnimationFrame(update);
-      });
+        hero.addEventListener('mouseleave', () => {
+          hero.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+          hero.style.setProperty('--mx', '50%');
+          hero.style.setProperty('--my', '50%');
+        });
+      }
 
-      hero.addEventListener('mouseenter', () => {
-        hero.style.transition = 'transform .22s ease';
-        setTimeout(() => hero.style.transition = '', 240);
-      });
-
-      hero.addEventListener('mouseleave', () => {
-        hero.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
-        hero.style.setProperty('--mx', '50%');
-        hero.style.setProperty('--my', '50%');
-      });
+      // Discord: app link dene, olmazsa web fallback
+      const dBtn = document.getElementById('discordBtn');
+      if (dBtn) {
+        dBtn.addEventListener('click', (e) => {
+          const webUrl = dBtn.getAttribute('data-web');
+          // mobile/desktop fark etmeden "deneyip" fallback
+          setTimeout(() => {
+            // app açılmazsa web aç
+            window.open(webUrl, '_blank', 'noopener');
+          }, 450);
+        });
+      }
     });
   </script>
 </body>
