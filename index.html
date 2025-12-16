@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>gizmoss<3</title>
+  <style>
+    :root{
+      --bg:#0b0c10; --card:#12141b; --text:#e9ecf1; --muted:#a9b0bf; --line:#1f2430;
+      --accent:#8a7dff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:radial-gradient(1200px 600px at 20% -10%, rgba(138,125,255,.22), transparent 60%),
+               radial-gradient(900px 500px at 110% 10%, rgba(0,255,209,.10), transparent 55%),
+               var(--bg);
+      color:var(--text);
+      font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+    a{color:var(--text); text-decoration: none; border-bottom:1px solid rgba(233,236,241,.25)}
+    a:hover{border-bottom-color: rgba(233,236,241,.65)}
+    .wrap{max-width:920px; margin:0 auto; padding:48px 18px 80px}
+    .hero{padding:28px 22px; border:1px solid var(--line); border-radius:18px; background:rgba(18,20,27,.72); backdrop-filter: blur(10px);}
+    .kicker{color:var(--muted); letter-spacing:.08em; text-transform:uppercase; font-size:12px}
+    h1{margin:10px 0 6px; font-size:34px; line-height:1.15}
+    .sub{color:var(--muted); margin:0}
+    .section{margin-top:26px; padding:22px; border:1px solid var(--line); border-radius:18px; background:rgba(18,20,27,.55)}
+    .title{display:flex; gap:10px; align-items:center; margin:0 0 12px}
+    .dot{width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 18px rgba(138,125,255,.55)}
+    .letter{white-space:pre-wrap; color:var(--text); margin:0}
+    .muted{color:var(--muted)}
+    .grid{display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px}
+    @media (max-width:720px){ .grid{grid-template-columns:1fr} h1{font-size:28px}}
+    .shot{
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+      background:#0f1118;
+    }
+    .shot img{width:100%; height:auto; display:block}
+    .cap{padding:10px 12px; color:var(--muted); font-size:13px; border-top:1px solid var(--line)}
+    .footer{margin-top:26px; text-align:center; color:var(--muted); font-size:13px}
+    .pill{
+      display:inline-block; padding:6px 10px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(255,255,255,.03); color:var(--muted); margin-top:10px
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="kicker">buranin kime ait oldugunu ogrenmek ister misin</div>
+      <h1>sadece sana ozel</h1>
+      <p class="sub">burasi oyle herkesin girebilecegi bi yer degil kocum. tamamen sana ait.</p>
+      <div class="pill">14.02.2026</div>
+    </section>
+
+    <section class="section">
+      <h2 class="title"><span class="dot"></span> Mektup</h2>
+      <p class="letter">
+hani bazi insanlarla konusurken kendini bi toplaman gerekir ya da ne bileyim, bi rahat hissedemezsin ya?
+iste ben sende onu asla yasamadim. 
+
+sen benim için hep ikinci tarafta oldun.
+yanindayken rahat hissetmemin,
+gulmemin,
+tek sebebi bu. benim icin herkesten ayri olman.
+
+yillardir “sanal” diyoruz ama
+bazi baglar ekrandan daha buyuk oluyor
+
+en sevdigim ozelligimiz de ne biliyon mu gizmos?
+birbirimize karsi durust olmak icin ekstra bi caba harcamamiza gerek yok.
+olduğumuz gibi davraniyoruz.
+
+hani bazen ayni seye bakip farkli yerlerden gorursun ya?
+sanki biz de oyleyiz.
+ayri ama sanki hep yanyanaymisiz gibi.
+
+bunu ozel bir güne sıkıstırmak istemedim.
+sadece hayatin boyunca sunu hic unutma:
+hayatimda kendimi guvende hissettigim sayili kisilerdensin.
+      </p>
+      <p class="muted" style="margin-top:12px">— dorisko</p>
+    </section>
+
+    <section class="section">
+      <h2 class="title"><span class="dot"></span> Playlist</h2>
+      <p class="muted">evet, bu sarkılar seni anlatmiyo. fakat seninle konusurken aklimda hep bunlar calıyor.</p>
+      <p style="margin:10px 0 0">
+        <a href=https://open.spotify.com/playlist/5EWSPHKCx88dJuqNtl4WsE?si=2dbe9251d02e4c11&pt=a80eb67d900886643881558b8a95fbe7 target="_blank" rel="noopener">Playlist’i aç</a>
+      </p>
+    </section>
+
+    <section class="section">
+      <h2 class="title"><span class="dot"></span> Anılar</h2>
+      <p class="muted">discord / oyun / random anlar… hepsi burada.</p>
+
+      <div class="grid" style="margin-top:14px">
+        <figure class="shot">
+          <img src="assets/ss1.jpg" alt="Anı 1">
+          <figcaption class="cap">Buraya kısa bir not (iç şaka falan) yaz</figcaption>
+        </figure>
+
+        <figure class="shot">
+          <img src="assets/ss2.jpg" alt="Anı 2">
+          <figcaption class="cap">“O gün” gibi küçük bir cümle yeter</figcaption>
+        </figure>
+
+        <figure class="shot">
+          <img src="assets/ss3.jpg" alt="Anı 3">
+          <figcaption class="cap">Discord SS’si / oyun SS’si</figcaption>
+        </figure>
+
+        <figure class="shot">
+          <img src="assets/ss4.jpg" alt="Anı 4">
+          <figcaption class="cap">İstersen daha fazla ekleriz</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="footer">
+      Bu sayfa sadece bir link. Ama his gerçek.
+    </div>
+  </main>
+</body>
+</html>
