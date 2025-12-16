@@ -50,31 +50,32 @@
   to{opacity:1; transform:translateY(0)}
 }
 
-.hero, .section{
+.hero{
   animation: fadeUp .6s ease both;
 }
 
-.section{
-  animation-delay: .06s;
-}
 
 .hero:hover, .section:hover{
-  transform: translateY(-2px);
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  transition: box-shadow .18s ease, border-color .18s ease;
   border-color: rgba(138,125,255,.35);
   box-shadow: 0 18px 50px rgba(0,0,0,.35);
 }
 
-    /* Scroll reveal (soft) */
+    
 .reveal{
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity .6s ease, transform .6s ease;
-  will-change: opacity, transform;
+  transform: translateY(8px);
+  filter: blur(1px);
+  transition:
+    opacity .9s cubic-bezier(.2,.8,.2,1),
+    transform .9s cubic-bezier(.2,.8,.2,1),
+    filter .9s cubic-bezier(.2,.8,.2,1);
+  will-change: opacity, transform, filter;
 }
 .reveal.show{
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
 }
 
 
@@ -94,7 +95,7 @@
       <h2 class="title"><span class="dot"></span> Playlist</h2>
       <p class="muted">bu playlist sana ozel. bu sarkilar gibi hissettiriyorsun.</p>
       <p style="margin:10px 0 0">
-        <a href=https://open.spotify.com/playlist/5EWSPHKCx88dJuqNtl4WsE?si=2dbe9251d02e4c11&pt=a80eb67d900886643881558b8a95fbe7 target="_blank" rel="noopener">tikla bakalimm ^^</a>
+        <a href="https://open.spotify.com/playlist/5EWSPHKCx88dJuqNtl4WsE?si=2dbe9251d02e4c11&pt=a80eb67d900886643881558b8a95fbe7" target="_blank" rel="noopener">tikla bakalimm ^^</a>
       </p>
     </section>
     
@@ -181,6 +182,7 @@ hayatimda kendimi guvende hissettigim sayili kisilerdensin.
     </div>
   </main>
   <script>
+  <script>
   const items = document.querySelectorAll('.reveal');
 
   const io = new IntersectionObserver((entries)=>{
@@ -190,9 +192,10 @@ hayatimda kendimi guvende hissettigim sayili kisilerdensin.
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.08, rootMargin: "0px 0px -10% 0px" });
 
   items.forEach(el=>io.observe(el));
+</script>
 </script>
 </body>
 </html>
