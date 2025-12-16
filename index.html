@@ -65,11 +65,24 @@
   box-shadow: 0 18px 50px rgba(0,0,0,.35);
 }
 
+    /* Scroll reveal (soft) */
+.reveal{
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .6s ease, transform .6s ease;
+  will-change: opacity, transform;
+}
+.reveal.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
   </style>
 </head>
 <body>
   <main class="wrap">
-    <section class="hero">
+    <section class="hero reveal show">
       <div class="kicker">umarim begenirsin..</div>
       <h1>sadece sana ozel.</h1>
       <p class="sub">burasi oyle herkesin girebilecegi bi yer degil kocum. tamamen sana ait.</p>
@@ -77,7 +90,7 @@
     </section>
     
 
-    <section class="section">
+    <section class="section reveal">
       <h2 class="title"><span class="dot"></span> Playlist</h2>
       <p class="muted">bu playlist sana ozel. bu sarkilar gibi hissettiriyorsun.</p>
       <p style="margin:10px 0 0">
@@ -86,7 +99,7 @@
     </section>
     
 
-    <section class="section">
+    <section class="section reveal">
       <h2 class="title"><span class="dot"></span> doriskodan gizmosa mektup</h2>
       <p class="letter">
 hani bazi insanlarla konusurken kendini bi toplaman gerekir ya da ne bileyim, bi rahat hissedemezsin ya?
@@ -115,7 +128,7 @@ hayatimda kendimi guvende hissettigim sayili kisilerdensin.
     </section>
 
     
-    <section class="section">
+    <section class="section reveal">
       <h2 class="title"><span class="dot"></span> Anılar</h2>
       <p class="muted">bak, burda da biz variz.</p>
 
@@ -167,5 +180,19 @@ hayatimda kendimi guvende hissettigim sayili kisilerdensin.
       bu sadece bir link. hislerimi istedigim kadar belli edemesem de, iyi ki dogdun, iyi ki varsin gizmos <3 
     </div>
   </main>
+  <script>
+  const items = document.querySelectorAll('.reveal');
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('show');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  items.forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
