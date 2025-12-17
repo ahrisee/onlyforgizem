@@ -9,45 +9,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  
-<style>
-  /* EL YAZISI */
-.hand {
-  font-family: "Caveat", cursive;
-  font-weight: 700;
-}
 
-/* HAFİF GLOW */
-.glow {
-  text-shadow:
-    0 0 8px rgba(255,255,255,.25),
-    0 0 18px rgba(43,108,255,.18),
-    0 0 30px rgba(0,255,209,.12);
-}
-
-/* EL YAZISI + GLOW */
-.handGlow {
-  font-family: "Caveat", cursive;
-  font-weight: 700;
-  text-shadow:
-    0 0 10px rgba(255,255,255,.35),
-    0 0 22px rgba(138,125,255,.25),
-    0 0 36px rgba(0,255,209,.18);
-}
-
-
-    :root{
-      ...
-    }
-
-    body{
-      ...
-    }
-
-    /* reveal, hover, glow, vs ne varsa HEPSİ BURADA */
-  </style>
   <style>
-</head>
+    /* EL YAZISI */
+    .hand {
+      font-family: "Caveat", cursive;
+      font-weight: 700;
+    }
+
+    /* HAFİF GLOW */
+    .glow {
+      text-shadow:
+        0 0 8px rgba(255,255,255,.25),
+        0 0 18px rgba(43,108,255,.18),
+        0 0 30px rgba(0,255,209,.12);
+    }
+
+    /* EL YAZISI + GLOW */
+    .handGlow {
+      font-family: "Caveat", cursive;
+      font-weight: 700;
+      text-shadow:
+        0 0 10px rgba(255,255,255,.35),
+        0 0 22px rgba(138,125,255,.25),
+        0 0 36px rgba(0,255,209,.18);
+    }
 
     :root{
       --bg:#050812;
@@ -55,7 +41,6 @@
       --muted:rgba(245,247,255,.62);
       --line:rgba(255,255,255,.10);
 
-      /* Ambient palette (blue/cyan) */
       --blue:#2b6cff;
       --cyan:#00ffd1;
       --ice:rgba(255,255,255,.12);
@@ -74,7 +59,7 @@
       overflow-x:hidden;
     }
 
-    /* Stronger animated ambience background (blue/cyan + soft white) */
+    /* Stronger animated ambience background */
     body::before{
       content:"";
       position:fixed;
@@ -105,6 +90,15 @@
       55%  { transform: translate3d( 1.2%,  1.4%, 0) scale(1.05); }
       100% { transform: translate3d( 2.4%, -0.8%, 0) scale(1.04); }
     }
+
+    /* reveal, hover, vs ne varsa BURANIN ALTINA devam */
+  </style>
+</head>
+<body>
+  ...
+</body>
+</html>
+
 
     /* Global mouse glow (kesin görünür) */
     .cursorGlow{
