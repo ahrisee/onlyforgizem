@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>gizmoss — v10</title>
+  <title>gizmoss — v12</title>
+
+  <!-- Handwritten font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -11,27 +16,21 @@
       --text:rgba(245,247,255,.94);
       --muted:rgba(245,247,255,.62);
       --line:rgba(255,255,255,.10);
-
-      /* Ambient palette (blue/cyan) */
       --blue:#2b6cff;
       --cyan:#00ffd1;
-      --ice:rgba(255,255,255,.12);
-
       --panel: rgba(10, 14, 28, .62);
       --shadow: 0 22px 70px rgba(0,0,0,.55);
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
-      background: var(--bg);
+      background:var(--bg);
       color:var(--text);
-      font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial;
       overflow-x:hidden;
     }
 
-    /* Stronger animated ambience background (blue/cyan + soft white) */
     body::before{
       content:"";
       position:fixed;
@@ -40,226 +39,61 @@
       background:
         radial-gradient(1100px 680px at 18% 12%, rgba(43,108,255,.25), transparent 62%),
         radial-gradient(980px 620px at 88% 18%, rgba(0,255,209,.16), transparent 58%),
-        radial-gradient(900px 620px at 30% 95%, rgba(43,108,255,.14), transparent 62%),
-        radial-gradient(760px 560px at 82% 92%, rgba(0,255,209,.10), transparent 60%),
         radial-gradient(820px 520px at 55% 55%, rgba(255,255,255,.06), transparent 60%);
-      filter: blur(16px) saturate(1.05);
-      opacity: 1;
-      transform: translate3d(0,0,0);
-      animation: bgDrift 16s ease-in-out infinite alternate;
-      pointer-events:none;
-    }
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      background: linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
-      pointer-events:none;
-    }
-    @keyframes bgDrift{
-      0%   { transform: translate3d(-1.8%, -1.2%, 0) scale(1.04); }
-      55%  { transform: translate3d( 1.2%,  1.4%, 0) scale(1.05); }
-      100% { transform: translate3d( 2.4%, -0.8%, 0) scale(1.04); }
+      filter: blur(16px);
+      animation:bgMove 16s ease-in-out infinite alternate;
     }
 
-    /* Global mouse glow (kesin görünür) */
-    .cursorGlow{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:-1;
-      opacity:.9;
-      background:
-        radial-gradient(280px 280px at var(--cx,50%) var(--cy,50%), rgba(0,255,209,.10), transparent 60%),
-        radial-gradient(420px 420px at var(--cx,50%) var(--cy,50%), rgba(43,108,255,.10), transparent 70%),
-        radial-gradient(620px 620px at var(--cx,50%) var(--cy,50%), rgba(255,255,255,.05), transparent 75%);
-      filter: blur(2px);
-      transition: opacity .25s ease;
+    @keyframes bgMove{
+      from{transform:translate(-2%,-1%) scale(1.05)}
+      to{transform:translate(2%,1%) scale(1.05)}
     }
 
-    a{color:var(--text); text-decoration:none; border-bottom:1px solid rgba(245,247,255,.25)}
-    a:hover{border-bottom-color: rgba(245,247,255,.80)}
+    .wrap{max-width:1040px;margin:0 auto;padding:54px 18px 96px}
 
-    .wrap{max-width:1040px; margin:0 auto; padding:54px 18px 96px}
-
-    /* Premium hover for ALL boxes */
-    .card, .shot, .noteBtn, .discordBtn{
-      transform: translateZ(0);
-      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, filter .22s ease;
-    }
-    .card:hover, .shot:hover, .noteBtn:hover, .discordBtn:hover{
-      transform: translateY(-7px);
-      box-shadow: var(--shadow);
-      border-color: rgba(0,255,209,.18);
-      filter: saturate(1.03);
-    }
-
-    /* Panels */
     .card{
       border:1px solid var(--line);
       border-radius:18px;
-      background: var(--panel);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 12px 40px rgba(0,0,0,.30);
-      position:relative;
-      overflow:hidden;
+      background:var(--panel);
+      backdrop-filter:blur(12px);
+      box-shadow:0 12px 40px rgba(0,0,0,.3);
+      transition:.25s;
     }
 
-    /* Typography glow (premium, not over) */
-    h1,h2{
-      text-shadow:
-        0 0 18px rgba(255,255,255,.14),
-        0 0 28px rgba(43,108,255,.18);
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:var(--shadow);
     }
-    .kicker,.muted,.cap,.footer{
-      text-shadow: 0 0 12px rgba(255,255,255,.10);
+
+    h1,h2{
+      text-shadow:0 0 22px rgba(255,255,255,.15);
+    }
+
+    /* Handwrite */
+    .handwrite{
+      font-family:"Caveat",cursive;
+      letter-spacing:.3px;
+      text-shadow:
+        0 0 10px rgba(255,255,255,.28),
+        0 0 18px rgba(43,108,255,.18);
     }
 
     .hero{
       padding:30px 24px;
-      transform-style: preserve-3d;
-      will-change: transform;
-      border-color: rgba(255,255,255,.10);
     }
 
-    /* Hero mouse glow (stronger) */
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background:
-        radial-gradient(360px 360px at var(--mx,50%) var(--my,50%), rgba(0,255,209,.18), transparent 62%),
-        radial-gradient(520px 520px at calc(var(--mx,50%) + 10%) calc(var(--my,50%) + 6%), rgba(43,108,255,.18), transparent 68%),
-        radial-gradient(640px 640px at 50% 50%, rgba(255,255,255,.05), transparent 72%);
-      opacity:.0;
-      transition: opacity .18s ease;
-      pointer-events:none;
-    }
-    .hero:hover::after{ opacity:1; }
+    .kicker{color:var(--muted);font-size:12px;letter-spacing:.1em}
+    h1{font-size:40px;margin:10px 0 6px}
+    .sub{color:var(--muted)}
 
-    .kicker{
-      color:var(--muted);
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      font-size:12px;
-      transform: translateZ(14px);
-    }
-    h1{
-      margin:10px 0 6px;
-      font-size:40px;
-      line-height:1.12;
-      transform: translateZ(18px);
-      text-shadow:
-        0 0 22px rgba(255,255,255,.18),
-        0 0 34px rgba(0,255,209,.10),
-        0 0 40px rgba(43,108,255,.18);
-    }
-    .sub{margin:0; color:var(--muted); transform: translateZ(14px);}
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 12px;
-      margin-top:12px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:999px;
-      background: rgba(255,255,255,.03);
-      color:var(--muted);
-      transform: translateZ(14px);
-    }
-    .pill .spark{
-      width:8px;height:8px;border-radius:99px;
-      background: linear-gradient(90deg, var(--blue), var(--cyan));
-      box-shadow: 0 0 18px rgba(0,255,209,.25);
-    }
-
-    .section{ padding:22px; margin-top:22px; }
-
-    .title{display:flex; gap:10px; align-items:center; margin:0 0 12px}
+    .section{padding:22px;margin-top:22px}
+    .title{display:flex;align-items:center;gap:10px;margin:0 0 12px}
     .dot{
       width:10px;height:10px;border-radius:50%;
-      background: linear-gradient(90deg, var(--blue), var(--cyan));
-      box-shadow: 0 0 18px rgba(43,108,255,.30), 0 0 18px rgba(0,255,209,.20);
-    }
-    .muted{ color:var(--muted); margin:0; }
-
-    /* Scroll reveal: kullanıcı ne kadar kaydırırsa o kadar açılır */
-    .reveal{ opacity:0; transform: translateY(24px); filter: blur(4px); }
-    .reveal.show{
-      opacity:1;
-      transform: translateY(0);
-      filter: blur(0);
-      transition:
-        opacity 1.05s cubic-bezier(.16,1,.3,1),
-        transform 1.05s cubic-bezier(.16,1,.3,1),
-        filter 1.05s cubic-bezier(.16,1,.3,1);
+      background:linear-gradient(90deg,var(--blue),var(--cyan));
+      box-shadow:0 0 14px rgba(0,255,209,.3);
     }
 
-    /* Spotify pulse */
-    .spotifyPulse{
-      display:inline-block;
-      font-weight:800;
-      letter-spacing:.02em;
-      border-bottom-color: rgba(245,247,255,.35);
-      animation: pulseGlow 1.8s ease-in-out infinite;
-    }
-    @keyframes pulseGlow{
-      0%, 100%{
-        text-shadow: 0 0 14px rgba(255,255,255,.12), 0 0 22px rgba(0,255,209,.10);
-        filter: brightness(1);
-      }
-      50%{
-        text-shadow: 0 0 18px rgba(255,255,255,.18), 0 0 38px rgba(0,255,209,.22), 0 0 28px rgba(43,108,255,.18);
-        filter: brightness(1.06);
-      }
-    }
-
-    /* Gallery grid */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:12px;
-      margin-top:14px;
-    }
-    @media (max-width:980px){ .grid{grid-template-columns:repeat(2, minmax(0,1fr));} }
-    @media (max-width:720px){ .grid{grid-template-columns:1fr;} h1{font-size:32px;} }
-
-    .shot{
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:14px;
-      overflow:hidden;
-      background: rgba(10,12,22,.62);
-      box-shadow: 0 12px 34px rgba(0,0,0,.28);
-      cursor:pointer;
-    }
-    .shot img{
-      width:100%;
-      aspect-ratio: 1 / 1;     /* KARE */
-      object-fit: cover;       /* default */
-      object-position: center;
-      display:block;
-      filter: saturate(1.06) contrast(1.04);
-      background: rgba(0,0,0,.22);
-    }
-    /* SS1 özel: kırpmadan kareye otursun */
-    .shot.contain img{
-      object-fit: contain;
-      padding: 8px;
-      background: rgba(7,10,18,.85);
-    }
-
-    .cap{
-      padding:10px 12px;
-      color:var(--muted);
-      font-size:13px;
-      border-top:1px solid rgba(255,255,255,.08);
-    }
-
-    .footer{ margin-top:26px; text-align:center; color:var(--muted); font-size:13px }
-
-    /* Note button */
     .noteBtn{
       display:inline-flex;
       align-items:center;
@@ -267,365 +101,126 @@
       margin-top:10px;
       padding:10px 14px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
       cursor:pointer;
-      box-shadow: 0 10px 26px rgba(0,0,0,.22);
     }
-    .noteBtn .tag{
-      font-size:16px;
-      text-shadow: 0 0 18px rgba(255,255,255,.22);
-    }
-    .noteBtn .mini{ color:var(--muted); font-size:13px; }
 
-    /* Modal base */
-    .modalBack{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.62);
-      backdrop-filter: blur(10px);
-      display:none; align-items:center; justify-content:center;
-      padding:18px;
-      z-index:80;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:14px;
     }
-    .modalBack.open{ display:flex; }
 
-    .modal{
-      width:min(940px,100%);
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(10,14,28,.86);
-      box-shadow: 0 28px 90px rgba(0,0,0,.55);
-      overflow:hidden;
-      transform: translateY(10px) scale(.98);
-      animation: modalIn .22s ease forwards;
-    }
-    @keyframes modalIn{ to{ transform: translateY(0) scale(1); } }
-
-    .modalTop{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 16px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-    }
-    .modalTop .t{ display:flex; align-items:center; gap:10px; font-weight:900; }
-    .xbtn{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
-      border-radius:12px;
-      padding:8px 12px;
-      cursor:pointer;
-      transition: transform .15s ease;
-    }
-    .xbtn:hover{ transform: translateY(-2px); }
-
-    .modalBody{ padding:18px 18px 20px; }
-    .letter{ white-space:pre-wrap; margin:0; color:var(--text); }
-    .sig{ margin-top:12px; color:var(--muted); }
-
-    /* Lightbox image modal */
-    .imgModalBody{ padding:12px 12px 14px; }
-    .imgFrame{
-      border:1px solid rgba(255,255,255,.10);
+    .shot{
+      border:1px solid var(--line);
       border-radius:14px;
       overflow:hidden;
-      background: rgba(0,0,0,.25);
-    }
-    .imgFrame img{
-      width:100%;
-      max-height: 70vh;
-      object-fit: contain;
-      display:block;
-      background: rgba(0,0,0,.35);
-    }
-    .imgCap{
-      margin:10px 2px 0;
-      color:var(--muted);
-      font-size:13px;
-      text-shadow: 0 0 14px rgba(255,255,255,.10);
+      cursor:pointer;
     }
 
-    /* Discord floating */
-    .discordFloat{
-      position:fixed; right:18px; bottom:18px;
-      z-index:90;
-      display:flex; flex-direction:column; align-items:flex-end; gap:10px;
+    .shot img{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+      display:block;
     }
+
+    .shot.contain img{
+      object-fit:contain;
+      background:#060914;
+      padding:8px;
+    }
+
+    .cap{
+      padding:10px 12px;
+      font-size:13px;
+      color:var(--muted);
+      border-top:1px solid var(--line);
+    }
+
+    .footer{
+      margin-top:26px;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* Discord */
+    .discordFloat{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:8px;
+    }
+
     .discordLabel{
       font-size:18px;
-      color:rgba(255,255,255,.92);
-      text-shadow: 0 0 18px rgba(255,255,255,.22), 0 0 30px rgba(43,108,255,.20), 0 0 26px rgba(0,255,209,.16);
-      opacity:.96;
-      pointer-events:none;
     }
+
     .discordBtn{
-      width:60px;height:60px;
+      width:56px;
+      height:56px;
       border-radius:18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(10,14,28,.55);
-      backdrop-filter: blur(10px);
-      display:grid; place-items:center;
-      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+      border:1px solid var(--line);
+      background:rgba(10,14,28,.6);
+      display:grid;
+      place-items:center;
+      color:white;
       text-decoration:none;
-      color: rgba(245,247,255,.92);
     }
-    .discordBtn svg{ width:30px; height:30px; filter: drop-shadow(0 0 14px rgba(255,255,255,.18)); }
-    .discordHint{ font-size:12px; color:rgba(245,247,255,.62); margin-right:2px; pointer-events:none; }
   </style>
 </head>
 
 <body>
-  <div class="cursorGlow" id="cursorGlow"></div>
 
-  <main class="wrap">
+<main class="wrap">
 
-    <section class="card hero reveal show" id="heroCard">
-      <div class="kicker">umarim begenirsin..</div>
-      <h1>sadece sana ozel.</h1>
-      <p class="sub">burasi oyle herkesin girebilecegi bi yer degil kocum. tamamen sana ait.</p>
-      <div class="pill"><span class="spark"></span>14.02.2006 &lt;3</div>
-    </section>
+  <section class="card hero">
+    <div class="kicker">umarim begenirsin..</div>
+    <h1>sadece sana ozel.</h1>
+    <p class="sub">burasi oyle herkesin girebilecegi bi yer degil kocum. tamamen sana ait.</p>
+  </section>
 
-    <section class="card section reveal">
-      <h2 class="title"><span class="dot"></span> Playlist</h2>
-      <p class="muted">bu playlist sana ozel. bu sarkilar gibi hissettiriyorsun.</p>
-      <p style="margin:10px 0 0">
-        <a class="spotifyPulse" href="https://open.spotify.com/playlist/5EWSPHKCx88dJuqNtl4WsE?si=2dbe9251d02e4c11&pt=a80eb67d900886643881558b8a95fbe7" target="_blank" rel="noopener">tikla bakalimm ^^</a>
-      </p>
-    </section>
+  <section class="card section">
+    <h2 class="title"><span class="dot"></span> Playlist</h2>
+    <p class="sub">bu playlist sana ozel. bu sarkilar gibi hissettiriyorsun.</p>
+    <a href="https://open.spotify.com/playlist/5EWSPHKCx88dJuqNtl4WsE" target="_blank">tikla bakalimm ^^</a>
+  </section>
 
-    <section class="card section reveal">
-      <h2 class="title"><span class="dot"></span> doriskodan gizmosa mektup</h2>
-      <button class="noteBtn" id="openNote" type="button">
-        <span class="tag">not</span>
-        <span class="mini">tıkla, açalım.</span>
-      </button>
-    </section>
+  <section class="card section">
+    <h2 class="title"><span class="dot"></span> doriskodan gizmosa mektup</h2>
+    <button class="noteBtn handwrite">not • tıkla, açalım</button>
+  </section>
 
-    <section class="card section reveal">
-      <h2 class="title"><span class="dot"></span> Anılar</h2>
-      <p class="muted">bak, burda da biz variz.</p>
+  <section class="card section">
+    <h2 class="title"><span class="dot"></span> Anılar</h2>
 
-      <div class="grid" id="gallery">
-        <figure class="shot contain" data-full="assets/ss1.png" data-cap="yaptıgımız couple pplerden en guzeli bu bence">
-          <img src="assets/ss1.png" alt="Anı 1">
-          <figcaption class="cap">yaptıgımız couple pplerden en guzeli bu bence</figcaption>
-        </figure>
-
-        <figure class="shot" data-full="assets/ss2.png" data-cap="cok seksi cikmisiz baksana QWÜEĞQWPRĞQLELASFL">
-          <img src="assets/ss2.png" alt="Anı 2">
-          <figcaption class="cap">cok seksi cikmisiz baksana QWÜEĞQWPRĞQLELASFL</figcaption>
-        </figure>
-
-        <figure class="shot" data-full="assets/ss3.png" data-cap="burda da cok tatliyiz ben bu ssi cok seviyorum">
-          <img src="assets/ss3.png" alt="Anı 3">
-          <figcaption class="cap">burda da cok tatliyiz ben bu ssi cok seviyorum</figcaption>
-        </figure>
-
-        <figure class="shot" data-full="assets/ss4.png" data-cap="burda da simste bizim karakterler fingirdesiyo">
-          <img src="assets/ss4.png" alt="Anı 4">
-          <figcaption class="cap">burda da simste bizim karakterler fingirdesiyo</figcaption>
-        </figure>
-
-        <figure class="shot" data-full="assets/ss5.png" data-cap="bunu koymasam olmazdi. ileride bunu her turlu yapicaz.">
-          <img src="assets/ss5.png" alt="Anı 5">
-          <figcaption class="cap">bunu koymasam olmazdi. ileride bunu her turlu yapicaz.</figcaption>
-        </figure>
-
-        <figure class="shot" data-full="assets/ss6.png" data-cap="bak knkkk bu da bizz">
-          <img src="assets/ss6.png" alt="Anı 6">
-          <figcaption class="cap">bak knkkk bu da bizz</figcaption>
-        </figure>
-
-        <figure class="shot" data-full="assets/ss7.png" data-cap="♥">
-          <img src="assets/ss7.png" alt="Anı 7">
-          <figcaption class="cap">♥</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <div class="footer">
-      bu sadece bir link. hislerimi istedigim kadar belli edemesem de, iyi ki dogdun, iyi ki varsin gizmos &lt;3
+    <div class="grid">
+      <figure class="shot contain"><img src="assets/ss1.png"><figcaption class="cap">yaptıgımız couple pplerden en guzeli bu bence</figcaption></figure>
+      <figure class="shot"><img src="assets/ss2.png"><figcaption class="cap">cok seksi cikmisiz baksana QWÜEĞQWPRĞQLELASFL</figcaption></figure>
+      <figure class="shot"><img src="assets/ss3.png"><figcaption class="cap">burda da cok tatliyiz ben bu ssi cok seviyorum</figcaption></figure>
+      <figure class="shot"><img src="assets/ss4.png"><figcaption class="cap">burda da simste bizim karakterler fingirdesiyo</figcaption></figure>
+      <figure class="shot"><img src="assets/ss5.png"><figcaption class="cap">bunu koymasam olmazdi. ileride bunu her turlu yapicaz.</figcaption></figure>
+      <figure class="shot"><img src="assets/ss6.png"><figcaption class="cap">bak knkkk bu da bizz</figcaption></figure>
+      <figure class="shot"><img src="assets/ss7.png"><figcaption class="cap">♥</figcaption></figure>
     </div>
-  </main>
+  </section>
 
-  <!-- Note modal (kapalı başlar) -->
-  <div class="modalBack" id="noteBack" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="not">
-      <div class="modalTop">
-        <div class="t"><span class="dot"></span> doriskodan gizmosa mektup</div>
-        <button class="xbtn" id="closeNote" type="button">kapat</button>
-      </div>
-      <div class="modalBody">
-        <p class="letter">
-hani bazi insanlarla konusurken kendini bi toplaman gerekir ya da ne bileyim, bi rahat hissedemezsin ya?
-iste ben sende onu asla yasamadim. 
-
-sen benim için hep ilk tarafta oldun.
-yanindayken rahat hissetmemin, gulmemin tek sebebi bu. 
-benim icin herkesten ayri olman.
-
-yillardir “sanal” diyoruz ama
-bazi baglar ekrandan daha buyuk oluyor.
-
-en sevdigim ozelligimiz de ne biliyon mu gizmos?
-birbirimize karsi durust olmak icin ekstra bi caba harcamamiza gerek yok.
-oldugumuz gibi davraniyoruz.
-
-hani bazen ayni seye bakip farkli yerlerden gorursun ya?
-sanki biz de oyleyiz.
-ayri ama sanki hep yanyanaymisiz gibi.
-
-bunu ozel bir güne sıkıstırmak istemedim.
-sadece hayatin boyunca sunu hic unutma:
-hayatimda kendimi guvende hissettigim sayili kisilerdensin.
-        </p>
-        <p class="sig">— dorisko</p>
-      </div>
-    </div>
+  <div class="footer">
+    bu sadece bir link. hislerimi istedigim kadar belli edemesem de, iyi ki dogdun, iyi ki varsin gizmos &lt;3
   </div>
 
-  <!-- Image lightbox modal -->
-  <div class="modalBack" id="imgBack" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="image">
-      <div class="modalTop">
-        <div class="t"><span class="dot"></span> Anı</div>
-        <button class="xbtn" id="closeImg" type="button">kapat</button>
-      </div>
-      <div class="imgModalBody">
-        <div class="imgFrame">
-          <img id="imgView" src="" alt="anı">
-        </div>
-        <div class="imgCap" id="imgCap"></div>
-      </div>
-    </div>
-  </div>
+</main>
 
-  <!-- Discord floating -->
-  <div class="discordFloat">
-    <div class="discordLabel">her zaman buradayim. &lt;3</div>
+<div class="discordFloat">
+  <div class="discordLabel handwrite">her zaman buradayim. &lt;3</div>
+  <a class="discordBtn" href="https://discord.com/users/DISCORD_ID" target="_blank">💬</a>
+</div>
 
-    <!-- BURADAKİ ID'Yİ DOLDUR -->
-    <a class="discordBtn"
-       href="https://discord.com/users/DISCORD_USER_ID_BURAYA"
-       target="_blank" rel="noopener"
-       aria-label="discord dm">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path fill="currentColor" d="M19.6 5.2a16 16 0 0 0-4-1.3l-.2.4a15 15 0 0 1 3.5 1.6c-1.5-.7-3.4-1.3-6.9-1.3S6.6 5.2 5.1 5.9A15 15 0 0 1 8.6 4.3l-.2-.4a16 16 0 0 0-4 1.3C2.4 8 1.8 10.6 2 13.2c1.3 1.9 3.2 3 5.1 3.7l.6-.8a9.8 9.8 0 0 1-1.6-.8l.4-.3c3.1 1.4 6.5 1.4 9.6 0l.4.3c-.5.3-1 .6-1.6.8l.6.8c1.9-.7 3.8-1.8 5.1-3.7.2-2.6-.4-5.2-2.4-8z"/>
-        <path fill="rgba(10,12,22,.62)" d="M9.2 13.4a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6zm5.6 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6z"/>
-      </svg>
-    </a>
-    <div class="discordHint">ahrisee</div>
-  </div>
-
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      // Cursor glow follow
-      const glow = document.getElementById('cursorGlow');
-      window.addEventListener('mousemove', (e)=>{
-        const x = (e.clientX / window.innerWidth) * 100;
-        const y = (e.clientY / window.innerHeight) * 100;
-        glow.style.setProperty('--cx', x + '%');
-        glow.style.setProperty('--cy', y + '%');
-      });
-
-      // Reveal per section
-      const els = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){
-            e.target.classList.add('show');
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.18, rootMargin: "0px 0px -18% 0px" });
-      els.forEach(el=>io.observe(el));
-
-      // Note modal
-      const noteBack = document.getElementById('noteBack');
-      const openNote = document.getElementById('openNote');
-      const closeNote = document.getElementById('closeNote');
-
-      const openModal = (back) => { back.classList.add('open'); back.setAttribute('aria-hidden','false'); };
-      const closeModal = (back) => { back.classList.remove('open'); back.setAttribute('aria-hidden','true'); };
-
-      openNote.addEventListener('click', ()=>openModal(noteBack));
-      closeNote.addEventListener('click', ()=>closeModal(noteBack));
-      noteBack.addEventListener('click', (e)=>{ if(e.target===noteBack) closeModal(noteBack); });
-
-      // Hero parallax + hero glow coords
-      const hero = document.getElementById('heroCard');
-      if (hero) {
-        const maxTilt = 5.4;
-        let rafId = null;
-        let px = 0, py = 0;
-
-        const setGlow = (x, y) => {
-          const r = hero.getBoundingClientRect();
-          const mx = ((x - r.left) / r.width) * 100;
-          const my = ((y - r.top) / r.height) * 100;
-          hero.style.setProperty('--mx', `${mx}%`);
-          hero.style.setProperty('--my', `${my}%`);
-        };
-
-        const update = () => {
-          rafId = null;
-          const r = hero.getBoundingClientRect();
-          const cx = r.left + r.width/2;
-          const cy = r.top + r.height/2;
-          const dx = (px - cx) / (r.width/2);
-          const dy = (py - cy) / (r.height/2);
-          const rx = (-dy * maxTilt).toFixed(2);
-          const ry = ( dx * maxTilt).toFixed(2);
-          hero.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-        };
-
-        hero.addEventListener('mousemove', (e) => {
-          px = e.clientX; py = e.clientY;
-          setGlow(e.clientX, e.clientY);
-          if (!rafId) rafId = requestAnimationFrame(update);
-        });
-
-        hero.addEventListener('mouseleave', () => {
-          hero.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
-          hero.style.setProperty('--mx','50%');
-          hero.style.setProperty('--my','50%');
-        });
-      }
-
-      // Image lightbox
-      const imgBack = document.getElementById('imgBack');
-      const closeImg = document.getElementById('closeImg');
-      const imgView = document.getElementById('imgView');
-      const imgCap = document.getElementById('imgCap');
-
-      const openImg = (src, cap) => {
-        imgView.src = src;
-        imgCap.textContent = cap || '';
-        openModal(imgBack);
-      };
-
-      closeImg.addEventListener('click', ()=>closeModal(imgBack));
-      imgBack.addEventListener('click', (e)=>{ if(e.target===imgBack) closeModal(imgBack); });
-
-      document.querySelectorAll('.shot').forEach((shot)=>{
-        shot.addEventListener('click', ()=>{
-          const src = shot.getAttribute('data-full') || shot.querySelector('img')?.src;
-          const cap = shot.getAttribute('data-cap') || '';
-          openImg(src, cap);
-        });
-      });
-
-      // Esc closes modals
-      window.addEventListener('keydown', (e)=>{
-        if(e.key==='Escape'){
-          closeModal(noteBack);
-          closeModal(imgBack);
-        }
-      });
-    });
-  </script>
 </body>
 </html>
