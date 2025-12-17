@@ -5,7 +5,50 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>gizmoss — v10</title>
 
+  <!-- Google font (el yazısı) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  
+<style>
+  /* EL YAZISI */
+.hand {
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+}
+
+/* HAFİF GLOW */
+.glow {
+  text-shadow:
+    0 0 8px rgba(255,255,255,.25),
+    0 0 18px rgba(43,108,255,.18),
+    0 0 30px rgba(0,255,209,.12);
+}
+
+/* EL YAZISI + GLOW */
+.handGlow {
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+  text-shadow:
+    0 0 10px rgba(255,255,255,.35),
+    0 0 22px rgba(138,125,255,.25),
+    0 0 36px rgba(0,255,209,.18);
+}
+
+
+    :root{
+      ...
+    }
+
+    body{
+      ...
+    }
+
+    /* reveal, hover, glow, vs ne varsa HEPSİ BURADA */
+  </style>
   <style>
+</head>
+
     :root{
       --bg:#050812;
       --text:rgba(245,247,255,.94);
@@ -397,12 +440,16 @@
     </section>
 
     <section class="card section reveal">
-      <h2 class="title"><span class="dot"></span> doriskodan gizmosa mektup</h2>
-      <button class="noteBtn" id="openNote" type="button">
-        <span class="tag">not</span>
-        <span class="mini">tıkla, açalım.</span>
-      </button>
-    </section>
+  <h2 class="title">
+    <span class="dot"></span> doriskodan gizmosa mektup
+  </h2>
+
+  <button class="noteBtn handGlow" id="openNote" type="button">
+    notu aç
+    <span class="mini">tikla burayaaa</span>
+  </button>
+</section>
+
 
     <section class="card section reveal">
       <h2 class="title"><span class="dot"></span> Anılar</h2>
@@ -505,11 +552,12 @@ hayatimda kendimi guvende hissettigim sayili kisilerdensin.
 
   <!-- Discord floating -->
   <div class="discordFloat">
-    <div class="discordLabel">her zaman buradayim. &lt;3</div>
+    <div class="discordLabel handGlow">her zaman buradayim. &lt;3</div>
+
 
     <!-- BURADAKİ ID'Yİ DOLDUR -->
     <a class="discordBtn"
-       href="https://discord.com/users/DISCORD_USER_ID_BURAYA"
+       href="https://discord.com/users/599305638455148547
        target="_blank" rel="noopener"
        aria-label="discord dm">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
