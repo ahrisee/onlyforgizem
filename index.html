@@ -91,10 +91,6 @@
       100% { transform: translate3d( 2.4%, -0.8%, 0) scale(1.04); }
     }
 
-    /* reveal, hover, vs ne varsa BURANIN ALTINA devam */
-  </style
-
-
     /* Global mouse glow (kesin görünür) */
     .cursorGlow{
       position:fixed;
@@ -217,7 +213,7 @@
     }
     .muted{ color:var(--muted); margin:0; }
 
-    /* Scroll reveal: kullanıcı ne kadar kaydırırsa o kadar açılır */
+    /* Scroll reveal */
     .reveal{ opacity:0; transform: translateY(24px); filter: blur(4px); }
     .reveal.show{
       opacity:1;
@@ -268,14 +264,13 @@
     }
     .shot img{
       width:100%;
-      aspect-ratio: 1 / 1;     /* KARE */
-      object-fit: cover;       /* default */
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
       object-position: center;
       display:block;
       filter: saturate(1.06) contrast(1.04);
       background: rgba(0,0,0,.22);
     }
-    /* SS1 özel: kırpmadan kareye otursun */
     .shot.contain img{
       object-fit: contain;
       padding: 8px;
@@ -429,16 +424,15 @@
     </section>
 
     <section class="card section reveal">
-  <h2 class="title">
-    <span class="dot"></span> doriskodan gizmosa mektup
-  </h2>
+      <h2 class="title">
+        <span class="dot"></span> doriskodan gizmosa mektup
+      </h2>
 
-  <button class="noteBtn handGlow" id="openNote" type="button">
-    notu aç
-    <span class="mini">tikla burayaaa</span>
-  </button>
-</section>
-
+      <button class="noteBtn handGlow" id="openNote" type="button">
+        notu aç
+        <span class="mini">tikla burayaaa</span>
+      </button>
+    </section>
 
     <section class="card section reveal">
       <h2 class="title"><span class="dot"></span> Anılar</h2>
@@ -543,10 +537,8 @@ hayatimda kendimi guvende hissettigim sayili kisilerdensin.
   <div class="discordFloat">
     <div class="discordLabel handGlow">her zaman buradayim. &lt;3</div>
 
-
-    <!-- BURADAKİ ID'Yİ DOLDUR -->
     <a class="discordBtn"
-       href="https://discord.com/users/599305638455148547
+       href="https://discord.com/users/599305638455148547"
        target="_blank" rel="noopener"
        aria-label="discord dm">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
